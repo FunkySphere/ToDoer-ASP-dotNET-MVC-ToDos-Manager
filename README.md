@@ -1,1 +1,1 @@
-# ToDoer-ASP-dotNET-MVC-ToDos-Manager
+# ToDoer - ASP.NET MVC ToDos Manager
