@@ -9,4 +9,6 @@ public class ApplicationDbContext : DbContext
     {
         
     }
+
+    public DbSet<ToDo>? ToDos { get; set; }
 }
