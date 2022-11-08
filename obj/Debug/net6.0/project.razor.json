@@ -16308,6 +16308,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\Development\\Github Repos\\ToDoer-ASP-dotNET-MVC-ToDos-Manager\\Views\\ToDo\\List.cshtml",
+      "TargetPath": "Views\\ToDo\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\Development\\Github Repos\\ToDoer-ASP-dotNET-MVC-ToDos-Manager\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
@@ -16320,6 +16325,11 @@
     {
       "FilePath": "d:\\Development\\Github Repos\\ToDoer-ASP-dotNET-MVC-ToDos-Manager\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Development\\Github Repos\\ToDoer-ASP-dotNET-MVC-ToDos-Manager\\Views\\ToDo\\Backlog.cshtml",
+      "TargetPath": "Views\\ToDo\\Backlog.cshtml",
       "FileKind": "mvc"
     },
     {
