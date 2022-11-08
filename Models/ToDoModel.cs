@@ -8,7 +8,7 @@ public class ToDo
 
     [Display(Name = "Task Name")]
     [Required]
-    public string TodoName { get; set; }
+    public string TodoName { get; set; } = "";
 
     public bool Complete { get; set; } = false;
 
