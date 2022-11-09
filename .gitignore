@@ -1,2 +1,4 @@
 obj/
 bin/
+staticwebassets.pack
+project.razor
