@@ -1,6 +1,17 @@
 obj/
+
 bin/
+
 node_modules/
+
 logs/
+
 staticwebassets.pack
+
+project.razor
+
+staticwebassets.pack.sentinel
+
+project.razor.json
+
 project.razor
