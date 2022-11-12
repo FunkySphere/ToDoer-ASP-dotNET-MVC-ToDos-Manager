@@ -13,8 +13,12 @@ public class ToDoController : Controller
     }
     public IActionResult List()
     {
-        List<ToDo> objList = _db.ToDos.ToList();
-        return View(objList);
+        if (_db.ToDos != null)
+        {
+            List<ToDo> objList = _db.ToDos.ToList();
+            return View(objList);
+        }
+        return NotFound();
     }
 
     //GET Create
@@ -29,7 +33,7 @@ public class ToDoController : Controller
     public IActionResult Create(ToDo obj)
     {
         //validation
-        if(ModelState.IsValid && _db.ToDos != null)
+        if (ModelState.IsValid && _db.ToDos != null)
         {
             _db.ToDos.Add(obj);
             _db.SaveChanges();
@@ -42,12 +46,12 @@ public class ToDoController : Controller
     //GET Delete
     public IActionResult Delete(int? id)
     {
-        if(id == null || id == 0 || _db.ToDos == null)
+        if (id == null || id == 0 || _db.ToDos == null)
         {
             return NotFound();
         }
         var obj = _db.ToDos.Find(id);
-        if(obj == null)
+        if (obj == null)
         {
             return NotFound();
         }
@@ -57,15 +61,85 @@ public class ToDoController : Controller
     //POST Delete
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult DeletePost(int? id)
+    public IActionResult PostDelete(int? id)
     {
-        var obj = _db.ToDos.Find(id);
-        if(obj == null)
+        if (_db.ToDos != null)
+        {
+            var obj = _db.ToDos.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.ToDos.Remove(obj);
+            _db.SaveChanges();
+        }
+        return RedirectToAction("List");
+    }
+
+    //GET Update
+    public IActionResult Update(int? id)
+    {
+        if (id == null || id == 0)
         {
             return NotFound();
         }
-        _db.ToDos.Remove(obj);
-        _db.SaveChanges();
+        if (_db.ToDos != null)
+        {
+            var obj = _db.ToDos.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+        return NotFound();
+    }
+
+    //POST Update
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Update(ToDo task)
+    {
+        if (ModelState.IsValid && _db.ToDos != null)
+        {
+            _db.ToDos.Update(task);
+            _db.SaveChanges();
+
+            return RedirectToAction("List");
+        }
+        return View(task);
+    }
+
+    //GET Delete
+    public IActionResult Finish(int? id)
+    {
+        if (id == null || id == 0 || _db.ToDos == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ToDos.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
+
+    //POST Finish
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostFinish(int? id)
+    {
+        if (_db.ToDos != null)
+        {
+            var obj = _db.ToDos.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            obj.Complete = true;
+            _db.SaveChanges();
+        }
         return RedirectToAction("List");
     }
 }

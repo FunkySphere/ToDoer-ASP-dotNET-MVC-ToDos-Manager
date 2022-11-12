@@ -43,14 +43,12 @@
                         <td width="20%">@task.Complete</td>
                         <td width="20%">
                             <div class="w-100 btn-group" role="group">
-                                <a asp-controller="ToDo" asp-action="Finish" asp-route-Id="@task.Id" class="btn btn-outline-success mx-1 btn-sm">
-                                    Finish
-                                </a>
-                                @* directs to a page that autimatically checks the completed checkbox and redirects back *@
-                                <a asp-controller="ToDo" asp-action="Update" asp-route-Id="@task.Id" class="btn btn-outline-secondary mx-1 btn-sm">
+                                <a asp-controller="ToDo" asp-action="Update" asp-route-Id="@task.Id"
+                            class="btn btn-outline-primary mx-1 btn-sm">
                                     Update
                                 </a>
-                                <a asp-controller="ToDo" asp-action="Delete" asp-route-Id="@task.Id" class="btn btn-outline-danger mx-1 btn-sm">
+                                <a asp-controller="ToDo" asp-action="Delete" asp-route-Id="@task.Id"
+                            class="btn btn-outline-danger mx-1 btn-sm">
                                     Delete
                                 </a>
                             </div>

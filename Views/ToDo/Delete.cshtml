@@ -3,10 +3,10 @@
 @model ToDo
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Item";
 }
 
-<form method="post" asp-action="DeletePost">
+<form method="post" asp-action="PostDelete">
     <input asp-for="Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
