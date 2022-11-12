@@ -3,34 +3,44 @@
 @model ToDo
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Update Item";
 }
 
 <form method="post" asp-action="Update">
     <input asp-for="Id" hidden>
     <input asp-for="Complete" hidden>
     <div class="border p-3">
-
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group row">
-            <h2 class="text-black-50 pl-3">
-                Add Item
+
+        <div class="form-group row col-12">
+            <h2 class="text-black-50 pl-2 col-2">
+                Update Item
             </h2>
         </div>
         <div class="row p-3">
-            <div class="col-12 p-3">
-                <div class="form-group row border col-4">
+
+            <div class="row align-items-center col-12 p-2">
+                <div class="form-group border col-4 p-1">
+                    <div class="p-2">
+                        <input asp-for="Complete" class="form-check-input" type="checkbox">
+                    </div>
+                    <div class="p-2">
+                        <label class="form-check-label" asp-for="Complete">
+                            Completed
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group border col-4 p-1">
                     <div class="p-2">
                         <label asp-for="TodoName"></label>
                     </div>
-                    <br>
                     <div class="p-2">
                         <input asp-for="TodoName" class="form-control">
                         <span asp-validation-for="TodoName" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group row">
 
+                <div class="form-group row">
                     <div class="col-8 offset-2 row">
                         <div class="col">
                             <br>

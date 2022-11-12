@@ -61,7 +61,7 @@ public class ToDoController : Controller
     //POST Delete
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult DeletePost(int? id)
+    public IActionResult PostDelete(int? id)
     {
         if (_db.ToDos != null)
         {
@@ -108,5 +108,38 @@ public class ToDoController : Controller
             return RedirectToAction("List");
         }
         return View(task);
+    }
+
+    //GET Delete
+    public IActionResult Finish(int? id)
+    {
+        if (id == null || id == 0 || _db.ToDos == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ToDos.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
+
+    //POST Finish
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostFinish(int? id)
+    {
+        if (_db.ToDos != null)
+        {
+            var obj = _db.ToDos.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            obj.Complete = true;
+            _db.SaveChanges();
+        }
+        return RedirectToAction("List");
     }
 }
