@@ -13,23 +13,28 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group row col-12">
-            <h2 class="text-black-50 pl-2 col-2">
+            <h2 class="text-black-50 pl-2 col-12">
                 Update Item
             </h2>
         </div>
         <div class="row p-3">
 
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" asp-for="Complete" id="btncheck1">
+                <label class="btn btn-outline-success" for="btncheck1" asp-for="Complete">Complete</label>
+            </div>
+
             <div class="row align-items-center col-12 p-2">
-                <div class="form-group border col-4 p-1">
+                @* <div class="form-group border col-4 p-1">
                     <div class="p-2">
-                        <input asp-for="Complete" class="form-check-input" type="checkbox">
+                    <input asp-for="Complete" class="form-check-input" type="checkbox">
                     </div>
                     <div class="p-2">
-                        <label class="form-check-label" asp-for="Complete">
-                            Completed
-                        </label>
+                    <label class="form-check-label" asp-for="Complete">
+                    Completed
+                    </label>
                     </div>
-                </div>
+                    </div> *@
                 <div class="form-group border col-4 p-1">
                     <div class="p-2">
                         <label asp-for="TodoName"></label>
@@ -40,17 +45,17 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-8 offset-2 row">
-                        <div class="col">
-                            <br>
-                            <input type="submit" class="btn btn-success w-75" value="Update" />
-                        </div>
-                        <div class="col">
-                            <br>
-                            <a asp-action="List" class="btn btn-secondary w-75">Go Back</a>
-                        </div>
+                <div class="form-group col-12">
+
+                    <div class="col-2 col-md-4 col-sm-12 col-12">
+                        <br>
+                        <input type="submit" class="btn btn-success w-75" value="Update" />
                     </div>
+                    <div class="col-2 col-md-4 col-sm-12 col-12">
+                        <br>
+                        <a asp-action="List" class="btn btn-secondary w-75">Back</a>
+                    </div>
+
                 </div>
             </div>
         </div>
