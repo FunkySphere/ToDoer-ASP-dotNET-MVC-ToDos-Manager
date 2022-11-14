@@ -124,22 +124,4 @@ public class ToDoController : Controller
         }
         return View(obj);
     }
-
-    //POST Finish
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult PostFinish(int? id)
-    {
-        if (_db.ToDos != null)
-        {
-            var obj = _db.ToDos.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            obj.Complete = true;
-            _db.SaveChanges();
-        }
-        return RedirectToAction("List");
-    }
 }
