@@ -124,4 +124,18 @@ public class ToDoController : Controller
         }
         return View(obj);
     }
+
+    public IActionResult Info(int? id)
+    {
+        if (id == null || id == 0 || _db.ToDos == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ToDos.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
 }
