@@ -19,14 +19,14 @@
         </div>
         <div class="row p-3">
 
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" asp-for="Complete" id="btncheck1">
-                <label class="btn btn-outline-success" for="btncheck1" asp-for="Complete">Complete</label>
-            </div>
-
             <div class="row align-items-center col-12 p-2">
 
-                <div class="input-group mb-3">
+                <div class="btn-group p-2" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" asp-for="Complete" id="btncheck1">
+                    <label class="btn btn-outline-success" for="btncheck1" asp-for="Complete">Complete</label>
+                </div>
+
+                <div class="input-group mb-3 p-2">
                     <span class="input-group-text" id="basic-addon1">Task Name</span>
                     <input type="text" asp-for="TodoName" class="form-control" aria-label="Username"
                         aria-describedby="basic-addon1">
