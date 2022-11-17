@@ -7,26 +7,69 @@
 }
 
 <div class="border p-3">
-        <div class="row">
-            <h2 class="text-black-50 pl-3">
-                <i class="fa-solid fa-circle-info"></i>
-                Task Information
-            </h2>
-            <div class="col-12 border p-3">
-                <p>
-                    @Model.TodoName
-                </p>
-            </div>
+
+    <div class="row">
+        <h2 class="text-black-50 pl-3">
+            <i class="fa-solid fa-circle-info"></i>
+            Task Information
+        </h2>
+        <div class="container p-3">
+            <table class="table table-bordered table-striped table-hover " style="width: 100%">
+                <tbody>
+                    <tr>
+                        <th width="30%">
+                            Task Name
+                        </th>
+                        <td width="70%">
+                            @Model.TodoName
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Completed
+                        </th>
+                        <td width="70%">
+                            @Model.Complete
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Creation Date
+                        </th>
+                        <td width="70%">
+                            @Model.CreationDate
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Deadline Date
+                        </th>
+                        <td width="70%">
+                            @Model.Deadline
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Tags
+                        </th>
+                        <td width="70%">
+                            @Model.Tags
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row p-3">
-            <div class="col-12 p-3">
-                    <div class="col-2 col-md-4 col-sm-12 col-12">
-                        <br>
-                        <a asp-action="List" class="btn btn-secondary w-75">Back</a>
-                    </div>
+
+    </div>
+    <div class="row p-3">
+        <div class="col-12 p-3">
+            <div class="col-2 col-md-4 col-sm-12 col-12">
+                <br>
+                <a asp-action="List" class="btn btn-secondary w-75">Back</a>
             </div>
         </div>
     </div>
+</div>
 @section Scripts{
 @{
     <partial name="_ValidationScriptsPartial" />}
