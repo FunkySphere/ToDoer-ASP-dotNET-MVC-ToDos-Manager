@@ -18,9 +18,30 @@
         <div class="row p-3">
             <div class="col-12 p-3">
 
-                <div class="input-group mb-3">
+                <div class="input-group p-3">
                     <span class="input-group-text" id="basic-addon1">Task Name</span>
                     <input type="text" asp-for="TodoName" class="form-control" aria-label="Username"
+                        aria-describedby="basic-addon1" disabled>
+                </div>
+
+                <div class="input-group p-3">
+                    @if (Model.Deadline != null)
+                    {
+                        <span class="input-group-text" id="basic-addon1">Deadline</span>
+                    <input type="date" asp-for="Deadline" class="form-control" aria-label="Deadline"
+                        aria-describedby="basic-addon1" disabled>
+                    }
+                    else
+                    {
+                        <span class="input-group-text" id="basic-addon1">Deadline</span>
+                    <input type="text" asp-for="Deadline" class="form-control" aria-label="Deadline"
+                        aria-describedby="basic-addon1" disabled value="~">
+                    }
+                </div>
+
+                <div class="input-group p-3">
+                    <span class="input-group-text" id="basic-addon1">Tags (separated by coma)</span>
+                    <input type="text" asp-for="Tags" class="form-control" aria-label="Tags (separated by coma)"
                         aria-describedby="basic-addon1" disabled>
                 </div>
 
