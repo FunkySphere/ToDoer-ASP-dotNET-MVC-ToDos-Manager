@@ -44,9 +44,17 @@
                         <th width="30%">
                             Deadline Date
                         </th>
-                        <td width="70%">
-                            @Model.Deadline
-                        </td>
+                        @if (Model.Deadline != null)
+                        {
+                            string? date = Model.Deadline.ToString().Substring(0, 10);
+                            <td width="70%">
+                                @date
+                            </td>
+                        }
+                        else
+                        {
+                            <td width="70%">~</td>
+                        }
                     </tr>
                     <tr>
                         <th width="30%">
