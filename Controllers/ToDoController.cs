@@ -21,6 +21,48 @@ public class ToDoController : Controller
         return NotFound();
     }
 
+    //POST Filter
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostFilter(string args)
+    {
+        if (_db.ToDos != null && args != null)
+        {
+            List<ToDo> objList = _db.ToDos.ToList();
+            List<ToDo> filteredList = new();
+            List<string> tagsToFilterBy = DeserializeTags(args);
+
+            foreach (ToDo item in objList)
+            {
+                /* if(item.Tags same to argiment tags) put into the filtered list */
+            }
+            return RedirectToAction("List");
+            //put the filtered stuff as a second argument
+        }
+
+        return RedirectToAction("List");
+    }
+
+    public List<string> DeserializeTags(string tags)
+    {
+        List<string> output = new();
+        string input = tags.Trim();
+        do
+        {
+            string tag;
+            
+            if (input.Contains(',')) tag = input.Substring(0, input.IndexOf(',')).Trim();
+            else tag = input.Trim();
+
+            if (tag != "") output.Add(tag);
+
+            if (input.Contains(',')) input = input.Substring(input.IndexOf(',') + 1, input.Length - input.IndexOf(',') - 1);
+            else break;
+        }
+        while (input != "");
+        return output;
+    }
+
     //GET Create
     public IActionResult Create()
     {
