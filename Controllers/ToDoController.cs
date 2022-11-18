@@ -6,19 +6,75 @@ namespace ToDoer.Controllers;
 public class ToDoController : Controller
 {
     private readonly ApplicationDbContext _db;
-
+    private List<ToDo>? filteredList;
     public ToDoController(ApplicationDbContext db)
     {
         _db = db;
+        filteredList = null;
     }
     public IActionResult List()
     {
         if (_db.ToDos != null)
         {
-            List<ToDo> objList = _db.ToDos.ToList();
+            List<ToDo> objList;
+            if (filteredList != null && filteredList.Count > 0)
+            {
+                return View(filteredList);
+            }
+            objList = _db.ToDos.ToList();
             return View(objList);
         }
         return NotFound();
+    }
+
+    //POST Filter
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostFilter(string args)
+    {
+        if (_db.ToDos != null && args != null)
+        {
+            List<ToDo> objList = _db.ToDos.ToList();
+            filteredList = new();
+            List<string> tagsToFilterBy = DeserializeTags(args);
+
+            foreach (ToDo item in objList)
+            {
+                if (item.Tags != null)
+                {
+                    foreach (string tag in tagsToFilterBy)
+                    {
+                        if (item.Tags.Contains(tag))
+                        {
+                            filteredList.Add(item);
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("List");
+        }
+
+        return RedirectToAction("List");
+    }
+
+    public List<string> DeserializeTags(string tags)
+    {
+        List<string> output = new();
+        string input = tags.Trim();
+        do
+        {
+            string tag;
+
+            if (input.Contains(',')) tag = input.Substring(0, input.IndexOf(',')).Trim();
+            else tag = input.Trim();
+
+            if (tag != "") output.Add(tag);
+
+            if (input.Contains(',')) input = input.Substring(input.IndexOf(',') + 1, input.Length - input.IndexOf(',') - 1);
+            else break;
+        }
+        while (input != "");
+        return output;
     }
 
     //GET Create
