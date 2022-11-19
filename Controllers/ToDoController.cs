@@ -6,22 +6,16 @@ namespace ToDoer.Controllers;
 public class ToDoController : Controller
 {
     private readonly ApplicationDbContext _db;
-    private List<ToDo>? filteredList;
+    private List<int> _filteredListOfIds = new();
     public ToDoController(ApplicationDbContext db)
     {
         _db = db;
-        filteredList = null;
     }
     public IActionResult List()
     {
         if (_db.ToDos != null)
         {
-            List<ToDo> objList;
-            if (filteredList != null && filteredList.Count > 0)
-            {
-                return View(filteredList);
-            }
-            objList = _db.ToDos.ToList();
+            List<ToDo> objList = _db.ToDos.ToList();
             return View(objList);
         }
         return NotFound();
@@ -35,7 +29,6 @@ public class ToDoController : Controller
         if (_db.ToDos != null && args != null)
         {
             List<ToDo> objList = _db.ToDos.ToList();
-            filteredList = new();
             List<string> tagsToFilterBy = DeserializeTags(args);
 
             foreach (ToDo item in objList)
@@ -46,14 +39,13 @@ public class ToDoController : Controller
                     {
                         if (item.Tags.Contains(tag))
                         {
-                            filteredList.Add(item);
+                            _filteredListOfIds.Add(item.Id);
                         }
                     }
                 }
             }
             return RedirectToAction("List");
         }
-
         return RedirectToAction("List");
     }
 
