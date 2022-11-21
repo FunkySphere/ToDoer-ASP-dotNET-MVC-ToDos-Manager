@@ -1,0 +1,99 @@
+@{
+    ViewData["Title"] = "ToDoer - Archived Tasks";
+}
+
+@using ToDoer.Models
+
+@model List<ArchivedToDo>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                <i class="fa-solid fa-box-archive"></i>
+                Archived Tasks
+            </h2>
+        </div>
+    </div>
+    <br>
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped table-hover" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>
+                        Task Name
+                    </th>
+                    <th class="">
+                        Archive Date
+                    </th>
+                    <th class="">
+                        Creation Date
+                    </th>
+                    <th>
+                        Changes
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model)
+                {
+                    <tr>
+                        <td width="20%" class="">@task.TodoName</td>
+                        @if (task.ArchiveDate != null)
+                        {
+                            string? date = task.ArchiveDate.ToString().Substring(0, 10);
+                            <td width="10%" class="">@date</td>
+                        }
+                        else
+                        {
+                            <td width="10%" class="">~</td>
+                        }
+
+                        @if (task.CreationDate != null)
+                        {
+                            string? date = task.CreationDate.ToString().Substring(0, 10);
+                            <td width="10%" class="">@date</td>
+                        }
+                        else
+                        {
+                            <td width="10%" class="">~</td>
+                        }
+                        <td width="20%">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Archive" asp-action="Restore" asp-route-Id="@task.Id"
+                            class="btn btn-outline-success mx-1 btn-sm">
+                                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                                    Restore
+                                </a>
+                                <a asp-controller="Archive" asp-action="Info" asp-route-Id="@task.Id"
+                            class="btn btn-outline-secondary mx-1 btn-sm">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Info
+                                </a>
+                                <a asp-controller="Archive" asp-action="Delete" asp-route-Id="@task.Id"
+                            class="btn btn-outline-danger mx-1 btn-sm">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h3>
+            No items archived yet
+        </h3>
+    }
+
+</div>
+
+@section Scripts{
+@{
+    <partial name="_ValidationScriptsPartial" />}
+}

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace ToDoer.Models;
-public class ToDo
+public class ArchivedToDo
 {
     [Key]
     public int Id { get; set; }
@@ -12,11 +12,9 @@ public class ToDo
 
     public bool Complete { get; set; } = false;
 
-    public DateTime? CreationDate {get; set;} = DateTime.Now;
-
-    //if the deadline is given, add a time left table section
+    public DateTime? CreationDate {get; set;} 
     public DateTime? Deadline {get; set;}
+    public DateTime? ArchiveDate {get; set;} = DateTime.Now;
 
-    //tags separated by coma
     public string? Tags {get; set;} = "";
 }
