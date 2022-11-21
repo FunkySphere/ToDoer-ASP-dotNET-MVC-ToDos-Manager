@@ -26,7 +26,7 @@
                     <label class="btn btn-outline-success" for="btncheck1" asp-for="Complete">Complete</label>
                 </div>
 
-                <div class="input-group mb-3 p-2">
+                <div class="input-group p-2">
                     <span class="input-group-text" id="basic-addon1">Task Name</span>
                     <input type="text" asp-for="TodoName" class="form-control" aria-label="Username"
                         aria-describedby="basic-addon1">
@@ -52,6 +52,13 @@
                     <div class="col-2 col-md-4 col-sm-12 col-12">
                         <br>
                         <input type="submit" class="btn btn-success w-75" value="Update" />
+                    </div>
+                    <div class="col-2 col-md-4 col-sm-12 col-12">
+                        @using (Html.BeginForm("Archive", "ToDo", method: FormMethod.Post))
+                        {
+                            <input type="submit" class="btn btn-primary w-75" value="Archive" />
+                        }
+                        <br>
                     </div>
                     <div class="col-2 col-md-4 col-sm-12 col-12">
                         <br>

@@ -186,4 +186,29 @@ public class ToDoController : Controller
         }
         return View(obj);
     }
+
+    //POST Archive
+    public IActionResult Archive(ToDo obj)
+    {
+        if (_db.ToDos != null && _db.ArchivedTasks != null)
+        {
+            var objToArchive = _db.ToDos.Find(obj.Id);
+            if (objToArchive == null)
+            {
+                return NotFound();
+            }
+
+            _db.ArchivedTasks.Add(new ArchivedToDo {
+                TodoName = obj.TodoName,
+                Complete = obj.Complete,
+                CreationDate = obj.CreationDate,
+                Deadline = obj.Deadline,
+                ArchiveDate = DateTime.Now,
+                Tags = obj.Tags
+            });
+
+            _db.ToDos.Remove(objToArchive);
+        }
+        return RedirectToAction("List");
+    }
 }

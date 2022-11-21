@@ -6,8 +6,18 @@ namespace ToDoer.Controllers;
 
 public class ArchiveController : Controller
 {
-    public IActionResult Index()
+    private readonly ApplicationDbContext _db;
+    public ArchiveController(ApplicationDbContext db)
     {
-        return View();
+        _db = db;
+    }
+    public IActionResult List()
+    {
+        if (_db.ArchivedTasks != null)
+        {
+            List<ArchivedToDo> objList = _db.ArchivedTasks.ToList();
+            return View(objList);
+        }
+        return NotFound();
     }
 }
