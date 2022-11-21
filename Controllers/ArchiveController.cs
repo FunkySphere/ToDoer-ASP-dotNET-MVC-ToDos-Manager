@@ -4,7 +4,7 @@ using ToDoer.Data;
 
 namespace ToDoer.Controllers;
 
-public class BacklogController : Controller
+public class ArchiveController : Controller
 {
     public IActionResult Index()
     {
