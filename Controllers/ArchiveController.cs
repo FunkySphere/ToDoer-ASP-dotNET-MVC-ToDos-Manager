@@ -67,4 +67,48 @@ public class ArchiveController : Controller
         }
         return RedirectToAction("List");
     }
+
+    public IActionResult Restore(int? id)
+    {
+        if (id == null || _db.ArchivedTasks == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ArchivedTasks.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
+
+    //POST RestoreFromArchive
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult RestoreFromArchive(ArchivedToDo obj)
+    {
+        if (_db.ToDos != null && _db.ArchivedTasks != null)
+        {
+            var objToRestore = _db.ArchivedTasks.Find(obj.Id);
+            if (objToRestore == null)
+            {
+                return NotFound();
+            }
+
+            ToDo toDoToRestore = new ToDo(){
+                TodoName = objToRestore.TodoName,
+                Complete = objToRestore.Complete,
+                CreationDate = objToRestore.CreationDate,
+                Deadline = objToRestore.Deadline,
+                Tags = objToRestore.Tags
+            };
+
+            _db.ToDos.Add(toDoToRestore);
+
+            _db.ArchivedTasks.Remove(objToRestore);
+
+            _db.SaveChanges();
+        }
+        return RedirectToAction("List");
+    }
 }
