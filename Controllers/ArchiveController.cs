@@ -34,4 +34,37 @@ public class ArchiveController : Controller
         }
         return View(obj);
     }
+
+    //GET Delete
+    public IActionResult Delete(int? id)
+    {
+        if (id == null || _db.ArchivedTasks == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ArchivedTasks.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
+
+    //POST Delete
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PostDelete(int? id)
+    {
+        if (_db.ArchivedTasks != null)
+        {
+            var obj = _db.ArchivedTasks.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.ArchivedTasks.Remove(obj);
+            _db.SaveChanges();
+        }
+        return RedirectToAction("List");
+    }
 }

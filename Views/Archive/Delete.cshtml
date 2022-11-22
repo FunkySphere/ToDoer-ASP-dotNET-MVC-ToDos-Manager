@@ -1,0 +1,103 @@
+@using ToDoer.Models
+
+@model ArchivedToDo
+
+@{
+    ViewData["Title"] = "Delete Archived Item";
+}
+
+<form method="post" asp-action="PostDelete">
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">
+                <i class="fa-solid fa-trash-can"></i>
+                Delete Archived Item
+            </h2>
+        </div>
+        <div class="container p-3">
+            <table class="table table-bordered table-striped table-hover " style="width: 100%">
+                <tbody>
+                    <tr>
+                        <th width="30%">
+                            Task Name
+                        </th>
+                        <td width="70%">
+                            @Model.TodoName
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Completed
+                        </th>
+                        <td width="70%">
+                            @Model.Complete
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Creation Date
+                        </th>
+                        <td width="70%">
+                            @Model.CreationDate
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Archive Date
+                        </th>
+                        <td width="70%">
+                            @Model.ArchiveDate
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Deadline Date
+                        </th>
+                        @if (Model.Deadline != null)
+                        {
+                            string? date = Model.Deadline.ToString().Substring(0, 10);
+                            <td width="70%">
+                                @date
+                            </td>
+                        }
+                        else
+                        {
+                            <td width="70%">~</td>
+                        }
+                    </tr>
+                    <tr>
+                        <th width="30%">
+                            Tags
+                        </th>
+                        <td width="70%">
+                            @Model.Tags
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row p-3">
+            <div class="col-12 p-3">
+
+                <div class="form-group col-12">
+
+                    <div class="col-2 col-md-4 col-sm-12 col-12">
+                        <br>
+                        <input type="submit" class="btn btn-danger w-75" value="Delete" />
+                    </div>
+                    <div class="col-2 col-md-4 col-sm-12 col-12">
+                        <br>
+                        <a asp-action="List" class="btn btn-secondary w-75">Back</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+@{
+    <partial name="_ValidationScriptsPartial" />}
+}
