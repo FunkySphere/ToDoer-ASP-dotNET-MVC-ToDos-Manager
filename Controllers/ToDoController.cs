@@ -175,7 +175,7 @@ public class ToDoController : Controller
 
     public IActionResult Info(int? id)
     {
-        if (id == null || id == 0 || _db.ToDos == null)
+        if (id == null || _db.ToDos == null)
         {
             return NotFound();
         }

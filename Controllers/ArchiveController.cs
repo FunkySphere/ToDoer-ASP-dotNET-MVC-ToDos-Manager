@@ -20,4 +20,18 @@ public class ArchiveController : Controller
         }
         return NotFound();
     }
+
+    public IActionResult Info(int? id)
+    {
+        if (id == null || _db.ArchivedTasks == null)
+        {
+            return NotFound();
+        }
+        var obj = _db.ArchivedTasks.Find(id);
+        if (obj == null)
+        {
+            return NotFound();
+        }
+        return View(obj);
+    }
 }
