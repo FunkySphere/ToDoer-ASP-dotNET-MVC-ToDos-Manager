@@ -175,7 +175,7 @@ public class ToDoController : Controller
 
     public IActionResult Info(int? id)
     {
-        if (id == null || id == 0 || _db.ToDos == null)
+        if (id == null || _db.ToDos == null)
         {
             return NotFound();
         }
@@ -188,6 +188,8 @@ public class ToDoController : Controller
     }
 
     //POST Archive
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Archive(ToDo obj)
     {
         if (_db.ToDos != null && _db.ArchivedTasks != null)
@@ -198,16 +200,20 @@ public class ToDoController : Controller
                 return NotFound();
             }
 
-            _db.ArchivedTasks.Add(new ArchivedToDo {
-                TodoName = obj.TodoName,
-                Complete = obj.Complete,
-                CreationDate = obj.CreationDate,
-                Deadline = obj.Deadline,
+            ArchivedToDo toDoToArchive = new ArchivedToDo(){
+                TodoName = objToArchive.TodoName,
+                Complete = objToArchive.Complete,
+                CreationDate = objToArchive.CreationDate,
+                Deadline = objToArchive.Deadline,
                 ArchiveDate = DateTime.Now,
-                Tags = obj.Tags
-            });
+                Tags = objToArchive.Tags
+            };
+
+            _db.ArchivedTasks.Add(toDoToArchive);
 
             _db.ToDos.Remove(objToArchive);
+
+            _db.SaveChanges();
         }
         return RedirectToAction("List");
     }
