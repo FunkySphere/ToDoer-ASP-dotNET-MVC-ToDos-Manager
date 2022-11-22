@@ -188,6 +188,8 @@ public class ToDoController : Controller
     }
 
     //POST Archive
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Archive(ToDo obj)
     {
         if (_db.ToDos != null && _db.ArchivedTasks != null)
@@ -208,6 +210,8 @@ public class ToDoController : Controller
             });
 
             _db.ToDos.Remove(objToArchive);
+
+            _db.SaveChanges();
         }
         return RedirectToAction("List");
     }
