@@ -24,14 +24,15 @@
             @if (Model.Count() > 0)
             {
                 <div class="p-1">
-                    @using (Html.BeginForm(controllerName: "ToDo", actionName: "PostFilter", method: FormMethod.Post))
+                    @using (Html.BeginForm())
                     {
                         <div class="input-group col-3">
-                            <input type="text" id="args" name="args" class="form-control" placeholder="Filter by tags (separated by coma)"
-                        aria-label="Tags (separated by coma)" aria-describedby="button-addon2">
+                            <input type="text" id="SearchString" name="SearchString" class="form-control"
+                        placeholder="Search by name" aria-label="Search by name"
+                        aria-describedby="button-addon2">
                             <button class="btn btn-secondary" type="submit" id="button-addon2">
-                                <i class="fa-solid fa-filter"></i>
-                                Filter
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Search
                             </button>
                         </div>
                     }
@@ -47,13 +48,16 @@
             <thead>
                 <tr>
                     <th>
-                        Task Name
+                        @Html.ActionLink("Task Name", "List", new { sortOrder = ViewBag.NameSortParam })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
-                    <th class="">
-                        Completed
+                    <th>
+                        @Html.ActionLink("Complete", "List", new { sortOrder = ViewBag.CompletedSortParam })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
-                    <th class="">
-                        Deadline
+                    <th>
+                        @Html.ActionLink("Deadline", "List", new { sortOrder = ViewBag.DeadlineSortParam })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
                     <th>
                         Changes
@@ -109,7 +113,7 @@
     else
     {
         <h3>
-            No items created yet
+            No items created yet or no results found
         </h3>
     }
 
