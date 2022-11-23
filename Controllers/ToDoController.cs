@@ -11,12 +11,48 @@ public class ToDoController : Controller
     {
         _db = db;
     }
-    public IActionResult List()
+    public IActionResult List(string sortOrder, string searchString)
     {
         if (_db.ToDos != null)
         {
-            List<ToDo> objList = _db.ToDos.ToList();
-            return View(objList);
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id" : "";
+            ViewBag.NameSortParam = sortOrder == "name" ? "name_desc" : "name";
+            ViewBag.DeadlineSortParam = sortOrder == "deadline" ? "deadline_desc" : "deadline";
+            ViewBag.CompletedSortParam = sortOrder == "complete" ? "complete_desc" : "complete";
+
+            IEnumerable<ToDo> objList = from s in _db.ToDos select s;
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                objList = objList.Where(s => s.TodoName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    objList = objList.OrderBy(s => s.TodoName);
+                    break;
+                case "name_desc":
+                    objList = objList.OrderByDescending(s => s.TodoName);
+                    break;
+                case "deadline":
+                    objList = objList.OrderBy(s => s.Deadline);
+                    break;
+                case "deadline_desc":
+                    objList = objList.OrderByDescending(s => s.Deadline);
+                    break;
+                case "complete":
+                    objList = objList.OrderBy(s => s.Complete);
+                    break;
+                case "complete_desc":
+                    objList = objList.OrderByDescending(s => s.Complete);
+                    break;
+                default:
+                    objList = objList.OrderBy(s => s.Id);
+                    break;
+            }
+
+            return View(objList.ToList());
         }
         return NotFound();
     }
@@ -200,7 +236,8 @@ public class ToDoController : Controller
                 return NotFound();
             }
 
-            ArchivedToDo toDoToArchive = new ArchivedToDo(){
+            ArchivedToDo toDoToArchive = new ArchivedToDo()
+            {
                 TodoName = objToArchive.TodoName,
                 Complete = objToArchive.Complete,
                 CreationDate = objToArchive.CreationDate,
