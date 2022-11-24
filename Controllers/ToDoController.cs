@@ -20,7 +20,7 @@ public class ToDoController : Controller
 
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id" : "";
             ViewBag.NameSortParam = sortOrder == "name" ? "name_desc" : "name";
-            ViewBag.DeadlineSortParam = sortOrder == "deadline" ? "deadline_desc" : "deadline";
+            ViewBag.DeadlineSortParam = sortOrder == "deadline" ? "deadline" : "deadline_desc";
             ViewBag.CompletedSortParam = sortOrder == "complete" ? "complete_desc" : "complete";
 
             IEnumerable<ToDo> objList = from s in _db.ToDos select s;
