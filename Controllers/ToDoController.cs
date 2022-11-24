@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ToDoer.Models;
 using ToDoer.Data;
+
 namespace ToDoer.Controllers;
 
 public class ToDoController : Controller
@@ -15,6 +16,8 @@ public class ToDoController : Controller
     {
         if (_db.ToDos != null)
         {
+            ViewBag.currentSort = sortOrder;
+
             ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id" : "";
             ViewBag.NameSortParam = sortOrder == "name" ? "name_desc" : "name";
             ViewBag.DeadlineSortParam = sortOrder == "deadline" ? "deadline_desc" : "deadline";
@@ -55,54 +58,6 @@ public class ToDoController : Controller
             return View(objList.ToList());
         }
         return NotFound();
-    }
-
-    //POST Filter
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult PostFilter(string args)
-    {
-        if (_db.ToDos != null && args != null)
-        {
-            List<ToDo> objList = _db.ToDos.ToList();
-            List<string> tagsToFilterBy = DeserializeTags(args);
-
-            foreach (ToDo item in objList)
-            {
-                if (item.Tags != null)
-                {
-                    foreach (string tag in tagsToFilterBy)
-                    {
-                        if (item.Tags.Contains(tag))
-                        {
-                            _filteredListOfIds.Add(item.Id);
-                        }
-                    }
-                }
-            }
-            return RedirectToAction("List");
-        }
-        return RedirectToAction("List");
-    }
-
-    public List<string> DeserializeTags(string tags)
-    {
-        List<string> output = new();
-        string input = tags.Trim();
-        do
-        {
-            string tag;
-
-            if (input.Contains(',')) tag = input.Substring(0, input.IndexOf(',')).Trim();
-            else tag = input.Trim();
-
-            if (tag != "") output.Add(tag);
-
-            if (input.Contains(',')) input = input.Substring(input.IndexOf(',') + 1, input.Length - input.IndexOf(',') - 1);
-            else break;
-        }
-        while (input != "");
-        return output;
     }
 
     //GET Create
