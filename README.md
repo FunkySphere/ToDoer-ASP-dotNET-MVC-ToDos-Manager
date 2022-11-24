@@ -2,7 +2,12 @@
 <h3>ToDoer is a customizable task based organizational tool built with ASP.NET using Model-View-Controller architecture pattern.</h3>
 Application uses CRUD operations in collaboration with a MSSQL database to track and manage your tasks in an efficient manner. You are able to create, delete, update, archive, restore, filter and search through your tasks with customizable deadlines, tags etc.
 <hr>
-<h3>Screenshots:</h3>
+<h2><b>Installing</b></h2>
+<ul>
+<li>Compile the solution</li>
+</ul>
+<hr>
+<h3><b>Screenshots:</b></h3>
 <img src="https://user-images.githubusercontent.com/89979928/203768081-88786ef7-f87e-4f47-a008-9fcf32039997.png" alt="Home page">
 <img src="https://user-images.githubusercontent.com/89979928/203768088-69d23c39-0fce-4fca-8a1b-1ffdb000e6c5.png">
 <img src="https://user-images.githubusercontent.com/89979928/203772824-3b06019e-c376-481d-855d-114d948afa07.png">
