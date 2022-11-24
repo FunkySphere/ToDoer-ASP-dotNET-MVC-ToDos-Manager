@@ -11,12 +11,50 @@ public class ArchiveController : Controller
     {
         _db = db;
     }
-    public IActionResult List()
+    public IActionResult List(string sortOrder, string searchString)
     {
         if (_db.ArchivedTasks != null)
         {
-            List<ArchivedToDo> objList = _db.ArchivedTasks.ToList();
-            return View(objList);
+            ViewBag.currentSort = sortOrder;
+
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id" : "";
+            ViewBag.NameSortParam = sortOrder == "name" ? "name_desc" : "name";
+            ViewBag.CreationDateSortParam = sortOrder == "creation_date" ? "creation_date_desc" : "creation_date";
+            ViewBag.ArchiveDateSortParam = sortOrder == "archive_date" ? "archive_date_desc" : "archive_date";
+
+            IEnumerable<ArchivedToDo> objList = from s in _db.ArchivedTasks select s;
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                objList = objList.Where(s => s.TodoName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    objList = objList.OrderBy(s => s.TodoName);
+                    break;
+                case "name_desc":
+                    objList = objList.OrderByDescending(s => s.TodoName);
+                    break;
+                case "creation_date":
+                    objList = objList.OrderBy(s => s.CreationDate);
+                    break;
+                case "creation_date_desc":
+                    objList = objList.OrderByDescending(s => s.CreationDate);
+                    break;
+                case "archive_date":
+                    objList = objList.OrderBy(s => s.ArchiveDate);
+                    break;
+                case "archive_date_desc":
+                    objList = objList.OrderByDescending(s => s.ArchiveDate);
+                    break;
+                default:
+                    objList = objList.OrderBy(s => s.Id);
+                    break;
+            }
+
+            return View(objList.ToList());
         }
         return NotFound();
     }
@@ -87,7 +125,7 @@ public class ArchiveController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult RestoreFromArchive(ArchivedToDo obj)
     {
-        if (_db.ToDos != null && _db.ArchivedTasks != null)
+        if (_db.ArchivedTasks != null && _db.ToDos != null)
         {
             var objToRestore = _db.ArchivedTasks.Find(obj.Id);
             if (objToRestore == null)

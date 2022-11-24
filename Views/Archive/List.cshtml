@@ -14,6 +14,23 @@
                 Archived Tasks
             </h2>
         </div>
+        <div class="text-end col-6">
+            @if (Model.Count() > 0)
+            {
+                <div class="p-1">
+                    @using (Html.BeginForm("List", "Archive", method: FormMethod.Get))
+                    {
+                        <div class="input-group col-3">
+                            @Html.TextBox("SearchString", ViewBag.currentFilter as string)
+                            <button class="btn btn-secondary" type="submit" id="button-addon2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Search
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     </div>
     <br>
 
@@ -23,13 +40,19 @@
             <thead>
                 <tr>
                     <th>
-                        Task Name
+                        @Html.ActionLink("Task Name", "List", new { sortOrder = ViewBag.NameSortParam, currentFilter =
+                    ViewBag.currentFilter })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
-                    <th class="">
-                        Archive Date
+                    <th>
+                        @Html.ActionLink("Archive Date", "List", new { sortOrder = ViewBag.ArchiveDateSortParam, currentFilter =
+                    ViewBag.currentFilter })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
-                    <th class="">
-                        Creation Date
+                    <th>
+                        @Html.ActionLink("Creation Date", "List", new { sortOrder = ViewBag.CreationDateSortParam, currentFilter =
+                    ViewBag.currentFilter })
+                        <i class="fa-solid fa-sort"></i>
                     </th>
                     <th>
                         Changes
@@ -88,7 +111,7 @@
     else
     {
         <h3>
-            No items archived yet
+            No items archived yet or no results found
         </h3>
     }
 
@@ -96,5 +119,6 @@
 
 @section Scripts{
 @{
+    <script src="~/js/giveSearchBarAesthetics.js"></script>
     <partial name="_ValidationScriptsPartial" />}
 }
