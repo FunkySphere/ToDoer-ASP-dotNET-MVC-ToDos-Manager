@@ -4,8 +4,12 @@ Application uses CRUD operations in collaboration with a MSSQL database to track
 
 <h2><b>Installation Guide</b></h2>
 <ul>
-  <li>to do: finish the installation guide</li>
-  <li>Compile the solution</li>
+  <li>Download, install and run MSSQL Server Developer Edition</li>
+  <li>Clone the repository</li>
+  <li>Run <code>dotnet restore</code> command</li>
+  <li>Run <code>dotnet ef migrations add Init</code> command</li>
+  <li>Run <code>dotnet ef database update</code> command</li>
+  <li>Run the solution</li>
 </ul>
 
 <h3><b>Screenshots:</b></h3>
