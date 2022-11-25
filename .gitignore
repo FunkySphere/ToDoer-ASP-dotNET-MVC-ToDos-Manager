@@ -8,6 +8,9 @@ migrations/
 
 logs/
 
+.vscode/
+vscode/
+
 staticwebassets.pack
 
 project.razor
