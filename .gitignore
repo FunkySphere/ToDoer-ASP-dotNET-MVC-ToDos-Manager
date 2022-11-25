@@ -4,6 +4,8 @@ bin/
 
 node_modules/
 
+Migrations/
+
 logs/
 
 staticwebassets.pack
